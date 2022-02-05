@@ -4,6 +4,7 @@
 
 #include <stdexcept>
 #include <thread>
+#include <vector>
 
 #include <game.hpp>
 #include <resource_manager.hpp>
@@ -37,8 +38,120 @@ Game::Game() {
   renderer = new Renderer(shader);
 
   // load charater icons
-  CharacterIcon* t = new CharacterIcon("assets/terry.png", glm::vec2(0, 0));
-  character_list_.insert({"terry", t});
+  std::vector<std::string> characters = {
+    "alex",
+    "alph",
+    "banjokazooie",
+    "bayonetta",
+    "bowser",
+    "bowserjr",
+    "byleth",
+    "bylethf",
+    "captainfalcon",
+    "charizard",
+    "chrom",
+    "cloud",
+    "corrin",
+    "corrinfemale",
+    "daisy",
+    "darkpit",
+    "darksamus",
+    "diddykong",
+    "donkeykong",
+    "drmario",
+    "duckhunt",
+    "enderman",
+    "falco",
+    "fox",
+    "ganondorf",
+    "greninja",
+    "hero-dqiii",
+    "hero-dqiv",
+    "hero-dqviii",
+    "hero-dqxi",
+    "icies",
+    "ike",
+    "incineroar",
+    "inkling",
+    "inklingmale",
+    "isabelle",
+    "ivysaur",
+    "jigglypuff",
+    "joker",
+    "kazuya",
+    "ken",
+    "kingdedede",
+    "kingkrool",
+    "kirby",
+    "link",
+    "littlemac",
+    "lucario",
+    "lucas",
+    "lucina",
+    "luigi",
+    "mario",
+    "marth",
+    "megaman",
+    "metaknight",
+    "mewtwo",
+    "miifighter-brawler",
+    "miifighter-shooter",
+    "miifighter-sword",
+    "minmin",
+    "mrgameandwatch",
+    "mythra",
+    "ness",
+    "pacman",
+    "palutena",
+    "peach",
+    "pichu",
+    "pikachu",
+    "pikminandolimar",
+    "piranhaplant",
+    "pit",
+    "pokemontrainer",
+    "pokemontrainerfemale",
+    "pyra",
+    "pyra_mythra",
+    "richter",
+    "ridley",
+    "rob",
+    "robin",
+    "robinfemale",
+    "rosalinaandluma",
+    "roy",
+    "ryu",
+    "samus",
+    "sans",
+    "sephiroth",
+    "sheik",
+    "shulk",
+    "simon",
+    "snake",
+    "sonicthehedgehog",
+    "sora",
+    "squirtle",
+    "steve",
+    "terry",
+    "toonlink",
+    "villager",
+    "wario",
+    "wiifitmale",
+    "wiifittrainer",
+    "wolf",
+    "yoshi",
+    "younglink",
+    "zelda",
+    "zerosuitsamus",
+    "zombie",
+  };
+  glm::vec2 position = {0, 0};
+  for (std::string character : characters) {
+    std::string icon_filename = "assets/" + character + ".png";
+    CharacterIcon* t = new CharacterIcon(icon_filename, position);
+    character_list_.insert({character, t});
+    position.x += ICON_SIZE.x;
+  }
 
   // input
   input_ = new Input(window_);

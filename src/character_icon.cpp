@@ -1,8 +1,9 @@
 #include <character_icon.hpp>
+#include <config.hpp>
 
 CharacterIcon::CharacterIcon(std::string icon_path, glm::vec2 position) {
   position_ = position;
-  size_ = glm::vec2(70, 70);
+  size_ = ICON_SIZE;
   icon_ = new Graphic(icon_path, position_, size_, true);
 }
 
