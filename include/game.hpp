@@ -3,12 +3,12 @@
 
 #include <GLFW/glfw3.h>
 
-#include <map>
 #include <optional>
 
 #include <character_icon.hpp>
 #include <graphic.hpp>
 #include <input.hpp>
+#include <icon_container.hpp>
 
 class Game {
  public:
@@ -18,10 +18,10 @@ class Game {
 
 private:
   GLFWwindow* window_;
-  std::map<std::string, CharacterIcon*> character_list_;
   std::optional<CharacterIcon*> active_icon_;
   Input* input_;
   glm::vec2 mouse_pos_;
+  IconContainer* icon_container_;
 
   void initGLFW();
   void initGLAD();

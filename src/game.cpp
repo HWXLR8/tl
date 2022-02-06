@@ -145,13 +145,7 @@ Game::Game() {
     "zerosuitsamus",
     "zombie",
   };
-  glm::vec2 position = {0, 0};
-  for (std::string character : characters) {
-    std::string icon_filename = "assets/" + character + ".png";
-    CharacterIcon* t = new CharacterIcon(icon_filename, position);
-    character_list_.insert({character, t});
-    position.x += ICON_SIZE.x;
-  }
+  icon_container_ = new IconContainer(glm::vec2{0, 0}, glm::vec2{420, 0}, characters);
 
   // input
   input_ = new Input(window_);
@@ -208,16 +202,14 @@ void Game::recalculateProjectionMatrix(glm::vec2 new_screen_size) {
 
 void Game::update(double dt) {
   mouse_pos_ = input_->getMousePosition();
-  updateActiveIcon();
+  // updateActiveIcon();
   input_->process(active_icon_, dt);
 }
 
 void Game::render() {
   Shader static_image = ResourceManager::getShader("static_image");
   renderer->setShader(static_image);
-  for (auto& [key, val] : character_list_) {
-    val->render(renderer);
-  }
+  icon_container_->render(renderer);
 }
 
 void Game::run() {
@@ -237,11 +229,11 @@ void Game::run() {
   }
 }
 
-void Game::updateActiveIcon() {
-  active_icon_ == std::nullopt;
-  for (auto& [key, val] : character_list_) {
-    if (val->isActive(mouse_pos_)) {
-      active_icon_ = val;
-    }
-  }
-}
+// void Game::updateActiveIcon() {
+//   active_icon_ == std::nullopt;
+//   for (auto& [key, val] : character_list_) {
+//     if (val->isActive(mouse_pos_)) {
+//       active_icon_ = val;
+//     }
+//   }
+// }
