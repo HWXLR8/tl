@@ -145,8 +145,8 @@ Game::Game() {
     "zerosuitsamus",
     "zombie",
   };
-  IconContainer* character_pool = new IconContainer(glm::vec2{SCREEN_SIZE.x - 420, 0}, glm::vec2{420, SCREEN_SIZE.y}, characters);
-  IconContainer* t1 = new IconContainer(glm::vec2{0, 0}, glm::vec2{420, SCREEN_SIZE.y}, std::nullopt);
+  Tier* character_pool = new Tier(glm::vec2{SCREEN_SIZE.x - 420, 0}, glm::vec2{420, SCREEN_SIZE.y}, characters);
+  Tier* t1 = new Tier(glm::vec2{0, 0}, glm::vec2{420, SCREEN_SIZE.y}, std::nullopt);
   tiers_.push_back(character_pool);
   tiers_.push_back(t1);
 
@@ -252,8 +252,6 @@ void Game::run() {
   }
 }
 
-#include <iostream>
-
 void Game::getActiveIcon() {
   if (held_icon_ != nullptr) {
     active_icon_ = held_icon_;
@@ -265,7 +263,6 @@ void Game::getActiveIcon() {
     active_icon = tier->getActiveIcon(mouse_pos_);
     if (active_icon != nullptr) {
       active_icon_ = active_icon;
-      std::cout << active_icon_->getCharacterName() << std:: endl;
       return;
     }
   }

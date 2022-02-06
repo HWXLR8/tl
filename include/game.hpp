@@ -7,7 +7,7 @@
 #include <character_icon.hpp>
 #include <graphic.hpp>
 #include <input.hpp>
-#include <icon_container.hpp>
+#include <tier.hpp>
 
 class Game {
  public:
@@ -22,7 +22,7 @@ private:
   CharacterIcon* held_icon_ = nullptr; // icon being held in hand while being dragged
   Input* input_;
   glm::vec2 mouse_pos_;
-  std::vector<IconContainer*> tiers_;
+  std::vector<Tier*> tiers_;
 
   void initGLFW();
   void initGLAD();

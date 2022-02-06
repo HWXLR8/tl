@@ -6,9 +6,9 @@
 
 #include <character_icon.hpp>
 
-class IconContainer {
+class Tier {
 public:
-  IconContainer(glm::vec2 position, glm::vec2 size, std::optional<std::vector<std::string>> characters);
+  Tier(glm::vec2 position, glm::vec2 size, std::optional<std::vector<std::string>> characters);
   void createNewIcon(std::string character_name);
   void addExistingIcon(CharacterIcon* icon);
   void removeIcon(CharacterIcon* icon);

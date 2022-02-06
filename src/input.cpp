@@ -53,7 +53,7 @@ glm::vec2 Input::getMousePosition() {
   return mouse_pos_;
 }
 
-void Input::process(CharacterIcon* active_icon, CharacterIcon* held_icon, std::vector<IconContainer*> tiers, double dt) {
+void Input::process(CharacterIcon* active_icon, CharacterIcon* held_icon, std::vector<Tier*> tiers, double dt) {
   if (click_ && held_icon != nullptr) {
     // get active tier
     for (auto& tier : tiers) {
