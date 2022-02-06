@@ -20,7 +20,7 @@ class Input {
 public:
   Input(GLFWwindow* window);
   glm::vec2 getMousePosition();
-  void process(CharacterIcon* active_icon, std::vector<IconContainer*> tiers, double dt);
+  void process(CharacterIcon* active_icon, CharacterIcon* held_icon, std::vector<IconContainer*> tiers, double dt);
 
 private:
   bool keys_[1024] = {false};

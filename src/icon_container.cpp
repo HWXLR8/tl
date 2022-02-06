@@ -23,7 +23,7 @@ IconContainer::IconContainer(glm::vec2 position, glm::vec2 size, std::optional<s
 
 void IconContainer::createNewIcon(std::string character_name) {
   incrementIconIndex();
-  glm::vec2 position = (last_icon_index_ * ICON_SIZE);
+  glm::vec2 position = (last_icon_index_ * ICON_SIZE) + position_;
   CharacterIcon* icon = new CharacterIcon(character_name, position);
   icons_.push_back(icon);
 }
