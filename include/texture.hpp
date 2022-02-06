@@ -1,5 +1,4 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#pragma once
 
 #include <string>
 
@@ -30,5 +29,3 @@ private:
   unsigned int filter_max_;
   std::string name_;
 };
-
-#endif

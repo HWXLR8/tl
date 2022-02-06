@@ -1,5 +1,4 @@
-#ifndef GRAPHIC_H
-#define GRAPHIC_H
+#pragma once
 
 #include <optional>
 
@@ -54,5 +53,3 @@ private:
   glm::vec2 calculateUnitVector(glm::vec2 p1, glm::vec2 p2);
   double calculateVectorMagnitude(glm::vec2 p1, glm::vec2 p2);
 };
-
-#endif

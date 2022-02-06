@@ -1,5 +1,4 @@
-#ifndef SHADER_H
-#define SHADER_H
+#pragma once
 
 #include <glm/glm.hpp>
 
@@ -22,5 +21,3 @@ private:
   unsigned int id_;
   void checkCompileErrors(unsigned int object, std::string type);
 };
-
-#endif

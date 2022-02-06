@@ -1,5 +1,4 @@
-#ifndef RENDERER_H
-#define RENDERER_H
+#pragma once
 
 #include <glm/glm.hpp>
 
@@ -18,5 +17,3 @@ class Renderer {
   unsigned int quadVAO_;
   void initRenderData();
 };
-
-#endif

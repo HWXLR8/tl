@@ -1,5 +1,4 @@
-#ifndef INPUT_H
-#define INPUT_H
+#pragma once
 
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -37,5 +36,3 @@ private:
   void scrollCallback(GLFWwindow* window, double xoffset, double yoffset);
   void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 };
-
-#endif

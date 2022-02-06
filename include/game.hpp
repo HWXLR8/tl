@@ -1,5 +1,4 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
 
 #include <GLFW/glfw3.h>
 
@@ -35,5 +34,3 @@ private:
   void recalculateProjectionMatrix(glm::vec2 new_screen_size);
   void getActiveIcon();
 };
-
-#endif
