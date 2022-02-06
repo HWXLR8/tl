@@ -34,3 +34,8 @@ std::string CharacterIcon::getCharacterName() {
 bool CharacterIcon::isBeingDragged() {
   return drag_;
 }
+
+void CharacterIcon::move(glm::vec2 new_position, double dt) {
+  position_ = new_position;
+  icon_->move(new_position, 0, dt);
+}

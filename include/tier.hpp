@@ -16,6 +16,7 @@ public:
   void update(glm::vec2 mouse_pos, double dt);
   CharacterIcon* getActiveIcon(glm::vec2 mouse_pos);
   bool isActive(glm::vec2 mouse_pos);
+  void clean(double dt); // move icons to their correct positions
 
 private:
   glm::vec2 getLastIconPosition();

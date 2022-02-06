@@ -11,6 +11,7 @@ public:
   void update(glm::vec2 mouse_pos, double dt);
   std::string getCharacterName();
   bool isBeingDragged();
+  void move(glm::vec2 new_position, double dt);
 
 private:
   Graphic* icon_;

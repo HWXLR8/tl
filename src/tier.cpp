@@ -29,11 +29,13 @@ void Tier::createNewIcon(std::string character_name) {
 }
 
 void Tier::addExistingIcon(CharacterIcon* icon) {
+  incrementIconIndex();
   icons_.push_back(icon);
 }
 
 void Tier::removeIcon(CharacterIcon* icon) {
   icons_.erase(std::remove(icons_.begin(), icons_.end(), icon), icons_.end());
+  decrementIconIndex();
 }
 
 void Tier::incrementIconIndex() {
@@ -48,6 +50,21 @@ void Tier::incrementIconIndex() {
     last_icon_index_.y += 1;
   } else {
     last_icon_index_.x += 1;
+  }
+}
+
+void Tier::decrementIconIndex() {
+  // special case for first icon
+  if (last_icon_index_ == glm::vec2{0, 0}) {
+    last_icon_index_ = {-1, -1};
+    return;
+  }
+  // we have reached the beginning of a row
+  if (last_icon_index_.x == 0) {
+    last_icon_index_.x = icon_capacity_.x - 1;
+    last_icon_index_.y -= 1;
+  } else {
+    last_icon_index_.x -= 1;
   }
 }
 
@@ -77,4 +94,13 @@ bool Tier::isActive(glm::vec2 mouse_pos) {
 	  (mouse_pos.x <= position_.x + size_.x) &&
 	  (position_.y <= mouse_pos.y) &&
 	  (mouse_pos.y <= position_.y + size_.y));
+}
+
+void Tier::clean(double dt) {
+  last_icon_index_ = glm::vec2{0, 0};
+  for (auto& icon : icons_) {
+    glm::vec2 icon_position = (last_icon_index_ * ICON_SIZE) + position_;
+    icon->move(icon_position, dt);
+    incrementIconIndex();
+  }
 }
