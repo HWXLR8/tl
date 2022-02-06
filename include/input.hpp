@@ -4,8 +4,8 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-#include <optional>
 #include <character_icon.hpp>
+#include <icon_container.hpp>
 
 enum MouseAction {
   LEFT_CLICK,
@@ -20,7 +20,7 @@ class Input {
 public:
   Input(GLFWwindow* window);
   glm::vec2 getMousePosition();
-  void process(std::optional<CharacterIcon*> active_icon_, double dt);
+  void process(CharacterIcon* active_icon, std::vector<IconContainer*> tiers, double dt);
 
 private:
   bool keys_[1024] = {false};

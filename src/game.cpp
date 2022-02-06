@@ -145,7 +145,8 @@ Game::Game() {
     "zerosuitsamus",
     "zombie",
   };
-  icon_container_ = new IconContainer(glm::vec2{0, 0}, glm::vec2{420, 0}, characters);
+  IconContainer* character_pool = new IconContainer(glm::vec2{0, 0}, glm::vec2{420, 0}, characters);
+  tiers_.push_back(character_pool);
 
   // input
   input_ = new Input(window_);
@@ -202,15 +203,32 @@ void Game::recalculateProjectionMatrix(glm::vec2 new_screen_size) {
 
 void Game::update(double dt) {
   mouse_pos_ = input_->getMousePosition();
-  active_icon_ = icon_container_->getActiveIcon(mouse_pos_);
-  input_->process(active_icon_, dt);
-  icon_container_->update(mouse_pos_, dt);
+  getActiveIcon();
+  input_->process(active_icon_, tiers_, dt);
+  // store the held icon so we don't lose it after removing it from the container
+  if (active_icon_ != nullptr && active_icon_->isBeingDragged()) {
+    held_icon_ = active_icon_;
+  }
+  if (held_icon_ != nullptr) {
+    held_icon_->update(mouse_pos_, dt);
+  }
+  for (auto& tier : tiers_) {
+    tier->update(mouse_pos_, dt);
+  }
 }
 
 void Game::render() {
   Shader static_image = ResourceManager::getShader("static_image");
   renderer->setShader(static_image);
-  icon_container_->render(renderer);
+  for (auto& tier : tiers_) {
+    tier->render(renderer);
+  }
+  if (active_icon_ != nullptr) {
+    active_icon_->render(renderer);
+  }
+  if (held_icon_ != nullptr) {
+    held_icon_->render(renderer);
+  }
 }
 
 void Game::run() {
@@ -228,4 +246,16 @@ void Game::run() {
     render();
     glfwSwapBuffers(window_);
   }
+}
+
+void Game::getActiveIcon() {
+  CharacterIcon* active_icon = nullptr;
+  for (auto& tier : tiers_) {
+    active_icon = tier->getActiveIcon(mouse_pos_);
+    if (active_icon != nullptr) {
+      active_icon_ = active_icon;
+      return;
+    }
+  }
+  active_icon_ = nullptr;
 }

@@ -36,11 +36,6 @@ void Input::runMouseCommand() {
 }
 
 void Input::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode) {
-  // supress warning for unused parameters
-  (void)window;
-  (void)scancode;
-  (void)mode;
-
   // when a user presses the escape key, we set the WindowShouldClose property to true, closing the application
   if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
     glfwSetWindowShouldClose(window, true);
@@ -58,9 +53,12 @@ glm::vec2 Input::getMousePosition() {
   return mouse_pos_;
 }
 
-void Input::process(std::optional<CharacterIcon*> active_icon_, double dt) {
-  if (click_ && active_icon_ != std::nullopt) {
-    active_icon_.value()->toggleDrag();
+void Input::process(CharacterIcon* active_icon, std::vector<IconContainer*> tiers, double dt) {
+  if (click_ && active_icon != nullptr) {
+    for (auto& tier : tiers) {
+      tier->removeIcon(active_icon);
+    }
+    active_icon->toggleDrag();
     click_ = false;
   }
 }

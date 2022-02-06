@@ -18,10 +18,12 @@ class Game {
 
 private:
   GLFWwindow* window_;
-  std::optional<CharacterIcon*> active_icon_;
+  // TODO do not make optional, use nullptr instead?
+  CharacterIcon* active_icon_ = nullptr; // icon the cursor is hovering over
+  CharacterIcon* held_icon_ = nullptr; // icon being held in hand while being dragged
   Input* input_;
   glm::vec2 mouse_pos_;
-  IconContainer* icon_container_;
+  std::vector<IconContainer*> tiers_;
 
   void initGLFW();
   void initGLAD();
@@ -31,6 +33,7 @@ private:
   void framebufferSizeCallback(GLFWwindow* window, int width, int height);
   void windowSizeCallback(GLFWwindow* window, int width, int height);
   void recalculateProjectionMatrix(glm::vec2 new_screen_size);
+  void getActiveIcon();
 };
 
 #endif
