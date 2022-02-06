@@ -31,7 +31,6 @@ private:
   void framebufferSizeCallback(GLFWwindow* window, int width, int height);
   void windowSizeCallback(GLFWwindow* window, int width, int height);
   void recalculateProjectionMatrix(glm::vec2 new_screen_size);
-  void updateActiveIcon();
 };
 
 #endif

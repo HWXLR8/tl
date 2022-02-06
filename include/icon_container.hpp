@@ -13,6 +13,8 @@ public:
   void createNewIcon(std::string character_name);
   void addExistingIcon(CharacterIcon* icon);
   void render(Renderer* renderer);
+  void update(glm::vec2 mouse_pos, double dt);
+  std::optional<CharacterIcon*> getActiveIcon(glm::vec2 mouse_pos);
 
 private:
   glm::vec2 getLastIconPosition();

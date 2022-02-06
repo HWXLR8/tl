@@ -60,7 +60,8 @@ glm::vec2 Input::getMousePosition() {
 
 void Input::process(std::optional<CharacterIcon*> active_icon_, double dt) {
   if (click_ && active_icon_ != std::nullopt) {
-    active_icon_.value()->drag(mouse_pos_, dt);
+    active_icon_.value()->toggleDrag();
+    click_ = false;
   }
 }
 

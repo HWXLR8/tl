@@ -202,8 +202,9 @@ void Game::recalculateProjectionMatrix(glm::vec2 new_screen_size) {
 
 void Game::update(double dt) {
   mouse_pos_ = input_->getMousePosition();
-  // updateActiveIcon();
+  active_icon_ = icon_container_->getActiveIcon(mouse_pos_);
   input_->process(active_icon_, dt);
+  icon_container_->update(mouse_pos_, dt);
 }
 
 void Game::render() {
@@ -228,12 +229,3 @@ void Game::run() {
     glfwSwapBuffers(window_);
   }
 }
-
-// void Game::updateActiveIcon() {
-//   active_icon_ == std::nullopt;
-//   for (auto& [key, val] : character_list_) {
-//     if (val->isActive(mouse_pos_)) {
-//       active_icon_ = val;
-//     }
-//   }
-// }

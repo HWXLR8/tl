@@ -46,3 +46,18 @@ void IconContainer::render(Renderer* renderer) {
     val->render(renderer);
   }
 }
+
+void IconContainer::update(glm::vec2 mouse_pos, double dt) {
+  for (auto& [key, val] : icons_) {
+    val->update(mouse_pos, dt);
+  }
+}
+
+std::optional<CharacterIcon*> IconContainer::getActiveIcon(glm::vec2 mouse_pos) {
+  for (auto& [key, val] : icons_) {
+    if (val->isActive(mouse_pos)) {
+      return val;
+    }
+  }
+  return std::nullopt;
+}
