@@ -61,7 +61,6 @@ void Input::process(CharacterIcon* active_icon, CharacterIcon* held_icon, std::v
 	tier->addExistingIcon(held_icon);
 	held_icon->toggleDrag();
       }
-      tier->clean(dt);
     }
     click_ = false;
   } else if (click_ && active_icon != nullptr) {

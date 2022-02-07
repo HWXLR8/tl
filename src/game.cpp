@@ -217,7 +217,11 @@ void Game::update(double dt) {
     held_icon_->update(mouse_pos_, dt);
   }
   for (auto& tier : tiers_) {
-    tier->update(mouse_pos_, dt);
+    bool part_icons = false;
+    if (held_icon_ != nullptr) {
+      part_icons = true;
+    }
+    tier->update(mouse_pos_, part_icons, dt);
   }
 }
 

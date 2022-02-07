@@ -74,10 +74,14 @@ void Tier::render(Renderer* renderer) {
   }
 }
 
-void Tier::update(glm::vec2 mouse_pos, double dt) {
+void Tier::update(glm::vec2 mouse_pos, bool part_icons, double dt) {
   for (auto& icon : icons_) {
     icon->update(mouse_pos, dt);
   }
+  getActiveIndex(mouse_pos);
+  if (active_index_.has_value()) {
+  }
+  clean(part_icons, dt);
 }
 
 CharacterIcon* Tier::getActiveIcon(glm::vec2 mouse_pos) {
@@ -96,11 +100,47 @@ bool Tier::isActive(glm::vec2 mouse_pos) {
 	  (mouse_pos.y <= position_.y + size_.y));
 }
 
-void Tier::clean(double dt) {
+void Tier::clean(bool part_icons, double dt) {
   last_icon_index_ = glm::vec2{0, 0};
   for (auto& icon : icons_) {
+    if (part_icons && active_index_.has_value() && last_icon_index_ == active_index_.value()) {
+      incrementIconIndex();
+    }
     glm::vec2 icon_position = (last_icon_index_ * ICON_SIZE) + position_;
     icon->move(icon_position, dt);
     incrementIconIndex();
+  }
+}
+
+void Tier::getActiveIndex(glm::vec2 mouse_pos) {
+  glm::vec2 index = {0, 0};
+
+  while (true) {
+    // the mouse is not within any of the icon indices
+    if ((index.y > last_icon_index_.y) ||
+	(index.y == last_icon_index_.y && index.x > last_icon_index_.x)) {
+      active_index_ = std::nullopt;
+      return;
+    }
+
+    // calculate icon position based on index, icon size and tier position
+    glm::vec2 icon_position = (index * ICON_SIZE) + position_;
+
+    // if mouse is within the icon
+    if ((icon_position.x <= mouse_pos.x) &&
+	(mouse_pos.x <= icon_position.x + ICON_SIZE.x) &&
+	(icon_position.y <= mouse_pos.y) &&
+	(mouse_pos.y <= icon_position.y + ICON_SIZE.y)) {
+      active_index_ = index;
+      return;
+    }
+
+    // move to next index
+    if (index.x == icon_capacity_.x - 1) {
+      index.x = 0;
+      index.y += 1;
+    } else {
+      index.x += 1;
+    }
   }
 }
