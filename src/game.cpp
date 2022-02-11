@@ -146,7 +146,7 @@ Game::Game() {
     // "zombie",
   };
   Tier* character_pool = new Tier(glm::vec2{SCREEN_SIZE.x - 6 * ICON_SIZE.x, 0}, glm::vec2{6 * ICON_SIZE.x, SCREEN_SIZE.y}, characters);
-  Tier* t1 = new Tier(glm::vec2{TIER_PADDING.x, TIER_PADDING.y}, glm::vec2{13 * ICON_SIZE.x, ICON_SIZE.y}, std::nullopt);
+  Tier* t1 = new Tier(glm::vec2{TIER_PADDING.x, TIER_PADDING.y}, glm::vec2{14 * ICON_SIZE.x, ICON_SIZE.y}, std::nullopt);
   tiers_.push_back(character_pool);
   tiers_.push_back(t1);
 
