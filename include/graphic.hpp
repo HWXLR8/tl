@@ -24,6 +24,7 @@ public:
   void setTexture(Texture2D new_tex);
   Texture2D getTexture();
   void steerMovement(glm::vec2 new_dest);
+  void setSize(glm::vec2 new_size);
 
 protected:
   glm::vec2 size_;

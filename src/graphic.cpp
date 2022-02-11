@@ -202,3 +202,7 @@ void Graphic::steerMovement(glm::vec2 new_dest) {
     (unit_vec.y * mag) / move_remaining_time_,
   };
 }
+
+void Graphic::setSize(glm::vec2 new_size) {
+  size_ = new_size;
+}

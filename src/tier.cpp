@@ -93,6 +93,7 @@ void Tier::render(Renderer* renderer) {
   }
 }
 
+#include <iostream>
 void Tier::update(glm::vec2 mouse_pos, bool part_icons, double dt) {
   for (auto& icon : icons_) {
     icon->update(mouse_pos, dt);
@@ -101,6 +102,17 @@ void Tier::update(glm::vec2 mouse_pos, bool part_icons, double dt) {
   if (active_index_.has_value()) {
   }
   clean(part_icons, dt);
+  // grow and shrink tier background
+  if ((icons_.size() != 0) &&
+      (last_icon_index_.x == icon_capacity_.x)) {
+    glm::vec2 bg_size = {size_.x, (last_icon_index_.y + 2) * ICON_SIZE.y};
+    size_ = bg_size;
+    bg_->setSize(bg_size);
+  } else {
+    glm::vec2 bg_size = {size_.x, (last_icon_index_.y + 1) * ICON_SIZE.y};
+    size_ = bg_size;
+    bg_->setSize(bg_size);
+  }
 }
 
 CharacterIcon* Tier::getActiveIcon(glm::vec2 mouse_pos) {
