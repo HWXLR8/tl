@@ -1,10 +1,10 @@
 $(shell mkdir -p bin)
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
-	LDFLAGS = `pkg-config --static --libs glfw3` -lGL -lm -lXrandr -lXi -lX11 -lXxf86vm -lpthread -ldl -lXinerama -lXcursor -lsqlite3 -lopenal -lalut
+	LDFLAGS = `pkg-config --static --libs glfw3` -lGL -lm -lXrandr -lXi -lX11 -lXxf86vm -lpthread -ldl -lXinerama -lXcursor
 endif
 ifeq ($(UNAME_S),Darwin)
-	LDFLAGS = `pkg-config --static --libs glfw3` -framework OpenGL -lm -lpthread -ldl -lsqlite3 -lopenal -lalut
+	LDFLAGS = `pkg-config --static --libs glfw3` -framework OpenGL -lm -lpthread -ldl
 endif
 # CXXFLAGS = -std=c++17 -g -Wall -Wextra
 CXXFLAGS = -std=c++17 -g
