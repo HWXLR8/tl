@@ -29,8 +29,23 @@ void Tier::createNewIcon(std::string character_name) {
 }
 
 void Tier::addExistingIcon(CharacterIcon* icon) {
+  if (!active_index_.has_value()) {
+    icons_.push_back(icon);
+    incrementIconIndex();
+    return;
+  }
+
+  glm::vec2 index = active_index_.value();
+  // if the active index is at the end of the tier or beyond, add to the end
+  if ((index.y > last_icon_index_.y) ||
+      (index.y == last_icon_index_.y && index.x > last_icon_index_.x)) {
+    icons_.push_back(icon);
+  } else {
+    // convert 2D index to 1D
+    int position = (index.y * icon_capacity_.x) + index.x;
+    icons_.insert(icons_.begin() + position, icon);
+  }
   incrementIconIndex();
-  icons_.push_back(icon);
 }
 
 void Tier::removeIcon(CharacterIcon* icon) {
