@@ -8,6 +8,9 @@ Tier::Tier(glm::vec2 position, glm::vec2 size, std::optional<std::vector<std::st
   position_ = position;
   size_ = size;
 
+  // set background texture
+  bg_ = new Graphic("assets/tier_bg.gif", position, size, false);
+
   // calculate icon capacity based on container size
   icon_capacity_ = {
     std::floor(size.x / ICON_SIZE.x),
@@ -84,6 +87,7 @@ void Tier::decrementIconIndex() {
 }
 
 void Tier::render(Renderer* renderer) {
+  bg_->render(renderer);
   for (auto& icon : icons_) {
     icon->render(renderer);
   }

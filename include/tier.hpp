@@ -26,6 +26,7 @@ private:
 
   glm::vec2 position_;
   glm::vec2 size_;
+  Graphic* bg_;
   std::vector<CharacterIcon*> icons_;
   glm::vec2 icon_capacity_;
   glm::vec2 last_icon_index_ = {-1, -1};
