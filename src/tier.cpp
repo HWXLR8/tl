@@ -4,7 +4,7 @@
 
 #include <config.hpp>
 
-Tier::Tier(glm::vec2 position, glm::vec2 size, std::optional<std::vector<std::string>> characters) {
+Tier::Tier(unsigned int num, std::string name, glm::vec2 position, glm::vec2 size, std::optional<std::vector<std::string>> characters) {
   position_ = position;
   size_ = size;
 

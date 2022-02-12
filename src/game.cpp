@@ -145,10 +145,16 @@ Game::Game() {
     "zerosuitsamus",
     // "zombie",
   };
-  Tier* character_pool = new Tier(glm::vec2{SCREEN_SIZE.x - 6 * ICON_SIZE.x, 0}, glm::vec2{6 * ICON_SIZE.x, SCREEN_SIZE.y}, characters);
-  Tier* t1 = new Tier(glm::vec2{TIER_PADDING.x, TIER_PADDING.y}, glm::vec2{14 * ICON_SIZE.x, ICON_SIZE.y}, std::nullopt);
+  Tier* character_pool = new Tier(0, "", glm::vec2{SCREEN_SIZE.x - 6 * ICON_SIZE.x, 0}, glm::vec2{6 * ICON_SIZE.x, SCREEN_SIZE.y}, characters);
+  Tier* t1 = new Tier(1, "TOP TIER", T1_POS, TIER_SIZE, std::nullopt);
+  Tier* t2 = new Tier(2, "HIGH TIER", T2_POS, TIER_SIZE, std::nullopt);
+  Tier* t3 = new Tier(3, "MID TIER", T3_POS, TIER_SIZE, std::nullopt);
+  Tier* t4 = new Tier(4, "LOW TIER", T4_POS, TIER_SIZE, std::nullopt);
   tiers_.push_back(character_pool);
   tiers_.push_back(t1);
+  tiers_.push_back(t2);
+  tiers_.push_back(t3);
+  tiers_.push_back(t4);
 
   // input
   input_ = new Input(window_);

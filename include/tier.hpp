@@ -8,7 +8,7 @@
 
 class Tier {
 public:
-  Tier(glm::vec2 position, glm::vec2 size, std::optional<std::vector<std::string>> characters);
+  Tier(unsigned int num, std::string name, glm::vec2 position, glm::vec2 size, std::optional<std::vector<std::string>> characters);
   void createNewIcon(std::string character_name);
   void addExistingIcon(CharacterIcon* icon);
   void removeIcon(CharacterIcon* icon);
