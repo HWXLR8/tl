@@ -222,11 +222,27 @@ void Game::update(double dt) {
   if (held_icon_ != nullptr) {
     held_icon_->update(mouse_pos_, dt);
   }
+
+  // update tiers
   for (auto& tier : tiers_) {
     bool part_icons = false;
     if (held_icon_ != nullptr) {
       part_icons = true;
     }
+
+    // update position relative to all previous tier sizes, this is disgusting
+    int tier_num = tier->getTierNumber();
+    // tier 0 and 1 never move
+    if (tier_num != 0 && tier_num != 1) {
+      // new tier position, the cumulative size of all previous tiers plus 20 pixel space
+      glm::vec2 new_pos = T1_POS;
+      for (int c = 1; c != tier_num; c++) {
+	new_pos.y += tiers_[c]->getSize().y;
+	new_pos.y += 20;
+      }
+      tier->setPosition(new_pos);
+    }
+
     tier->update(mouse_pos_, part_icons, dt);
   }
 }

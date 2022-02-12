@@ -8,7 +8,7 @@
 
 class Tier {
 public:
-  Tier(unsigned int num, std::string name, glm::vec2 position, glm::vec2 size, std::optional<std::vector<std::string>> characters);
+  Tier(int num, std::string name, glm::vec2 position, glm::vec2 size, std::optional<std::vector<std::string>> characters);
   void createNewIcon(std::string character_name);
   void addExistingIcon(CharacterIcon* icon);
   void removeIcon(CharacterIcon* icon);
@@ -16,14 +16,20 @@ public:
   void update(glm::vec2 mouse_pos, bool part_icons, double dt);
   CharacterIcon* getActiveIcon(glm::vec2 mouse_pos);
   bool isActive(glm::vec2 mouse_pos);
-  void clean(bool part_icons, double dt); // move icons to their correct positions
+  void clean(bool part_icons); // move icons to their correct positions
   void getActiveIndex(glm::vec2 mouse_pos);
+  glm::vec2 getSize();
+  glm::vec2 getPosition();
+  void setPosition(glm::vec2 position);
+  int getTierNumber();
 
 private:
   glm::vec2 getLastIconPosition();
   void incrementIconIndex();
   void decrementIconIndex();
 
+  int num_;
+  std::string name_;
   glm::vec2 position_;
   glm::vec2 size_;
   Graphic* bg_;

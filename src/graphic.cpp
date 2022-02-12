@@ -206,3 +206,7 @@ void Graphic::steerMovement(glm::vec2 new_dest) {
 void Graphic::setSize(glm::vec2 new_size) {
   size_ = new_size;
 }
+
+void Graphic::setPosition(glm::vec2 position) {
+  position_ = position;
+}

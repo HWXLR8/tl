@@ -4,7 +4,9 @@
 
 #include <config.hpp>
 
-Tier::Tier(unsigned int num, std::string name, glm::vec2 position, glm::vec2 size, std::optional<std::vector<std::string>> characters) {
+Tier::Tier(int num, std::string name, glm::vec2 position, glm::vec2 size, std::optional<std::vector<std::string>> characters) {
+  num_ = num;
+  name_ = name;
   position_ = position;
   size_ = size;
 
@@ -100,7 +102,7 @@ void Tier::update(glm::vec2 mouse_pos, bool part_icons, double dt) {
   getActiveIndex(mouse_pos);
   if (active_index_.has_value()) {
   }
-  clean(part_icons, dt);
+  clean(part_icons);
 
   // grow and shrink background
   glm::vec2 bg_size = {size_.x, (last_icon_index_.y + 1) * ICON_SIZE.y};
@@ -124,14 +126,14 @@ bool Tier::isActive(glm::vec2 mouse_pos) {
 	  (mouse_pos.y <= position_.y + size_.y));
 }
 
-void Tier::clean(bool part_icons, double dt) {
+void Tier::clean(bool part_icons) {
   last_icon_index_ = glm::vec2{0, 0};
   for (auto& icon : icons_) {
     if (part_icons && active_index_.has_value() && last_icon_index_ == active_index_.value()) {
       incrementIconIndex();
     }
     glm::vec2 icon_position = (last_icon_index_ * ICON_SIZE) + position_;
-    icon->move(icon_position, dt);
+    icon->setPosition(icon_position);
     incrementIconIndex();
   }
 }
@@ -167,4 +169,24 @@ void Tier::getActiveIndex(glm::vec2 mouse_pos) {
       index.x += 1;
     }
   }
+}
+
+glm::vec2 Tier::getSize() {
+  return size_;
+}
+
+glm::vec2 Tier::getPosition() {
+  return position_;
+}
+
+void Tier::setPosition(glm::vec2 position) {
+  position_ = position;
+  bg_->setPosition(position);
+  for (auto& icon : icons_) {
+    icon->setPosition(position);
+  }
+}
+
+int Tier::getTierNumber() {
+  return num_;
 }
