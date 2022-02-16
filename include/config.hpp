@@ -14,6 +14,7 @@ const glm::vec2 TIER_LABEL_OFFSET {0, TIER_LETTER_SIZE.y + 8};
 
 // tier positions
 const float TIER_SPACING = 70;
+const glm::vec2 TIER_TAIL = {60, 0};
 const glm::vec2 T1_POS = {TIER_PADDING.x, 70};
 const glm::vec2 T2_POS = T1_POS + glm::vec2{0, ICON_SIZE.y + TIER_SPACING};
 const glm::vec2 T3_POS = T2_POS + glm::vec2{0, ICON_SIZE.y + TIER_SPACING};

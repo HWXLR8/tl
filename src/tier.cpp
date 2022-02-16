@@ -110,7 +110,17 @@ void Tier::update(glm::vec2 mouse_pos, bool part_icons, double dt) {
   clean(part_icons);
 
   // grow and shrink background
-  glm::vec2 bg_size = {size_.x, (last_icon_index_.y + 1) * ICON_SIZE.y};
+  glm::vec2 bg_size;
+  if (icons_.size() == 0) {
+    bg_size = {icon_capacity_.x * ICON_SIZE.x, ICON_SIZE.y};
+  } else {
+    bg_size = {icon_capacity_.x * ICON_SIZE.x, (last_icon_index_.y + 1) * ICON_SIZE.y};
+  }
+  // add extra space at the end of the tier so there is room to add an
+  // icon to the end when the x capacity is full
+  if (num_ != 0) {
+    bg_size += TIER_TAIL;
+  }
   size_ = bg_size;
   bg_->setSize(bg_size);
 }
@@ -132,14 +142,17 @@ bool Tier::isActive(glm::vec2 mouse_pos) {
 }
 
 void Tier::clean(bool part_icons) {
-  last_icon_index_ = glm::vec2{0, 0};
+  if (icons_.size() == 0) {
+    return;
+  }
+  last_icon_index_ = glm::vec2{-1, -1};
   for (auto& icon : icons_) {
+    incrementIconIndex();
     if (part_icons && active_index_.has_value() && last_icon_index_ == active_index_.value()) {
       incrementIconIndex();
     }
     glm::vec2 icon_position = (last_icon_index_ * ICON_SIZE) + position_;
     icon->setPosition(icon_position);
-    incrementIconIndex();
   }
 }
 
