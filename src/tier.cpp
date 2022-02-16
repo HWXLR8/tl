@@ -10,6 +10,10 @@ Tier::Tier(int num, std::string name, glm::vec2 position, glm::vec2 size, std::o
   position_ = position;
   size_ = size;
 
+  // tier label
+  glm::vec2 label_position = {position.x, position.y - TIER_LETTER_SIZE.y - 8};
+  label_ = new Text(name, label_position, TIER_LETTER_SIZE, glm::vec2{100, 100}); // bullshit arguments...
+
   // set background texture
   bg_ = new Graphic("assets/tier_bg.gif", position, size, false);
 
@@ -93,6 +97,7 @@ void Tier::render(Renderer* renderer) {
   for (auto& icon : icons_) {
     icon->render(renderer);
   }
+  label_->render(renderer);
 }
 
 void Tier::update(glm::vec2 mouse_pos, bool part_icons, double dt) {

@@ -7,6 +7,7 @@
 #include <character_icon.hpp>
 #include <graphic.hpp>
 #include <input.hpp>
+#include <text.hpp>
 #include <tier.hpp>
 
 class Game {

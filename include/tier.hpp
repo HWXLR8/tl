@@ -5,6 +5,7 @@
 #include <vector>
 
 #include <character_icon.hpp>
+#include <text.hpp>
 
 class Tier {
 public:
@@ -37,4 +38,5 @@ private:
   glm::vec2 icon_capacity_;
   glm::vec2 last_icon_index_ = {-1, -1};
   std::optional<glm::vec2> active_index_;
+  Text* label_;
 };

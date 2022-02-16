@@ -1,8 +1,6 @@
 #include <graphic.hpp>
 #include <resource_manager.hpp>
 
-#include <iostream>
-
 Graphic::Graphic(std::string texturePath, glm::vec2 position, glm::vec2 size, bool transparent) {
   if (texturePath != "") {
     texture_ = ResourceManager::getTexture(texturePath, transparent);

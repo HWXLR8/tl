@@ -238,7 +238,7 @@ void Game::update(double dt) {
       glm::vec2 new_pos = T1_POS;
       for (int c = 1; c != tier_num; c++) {
 	new_pos.y += tiers_[c]->getSize().y;
-	new_pos.y += 20;
+	new_pos.y += TIER_SPACING;
       }
       tier->setPosition(new_pos);
     }

@@ -8,8 +8,8 @@ Texture2D::Texture2D()
     image_format_(GL_RGB),
     wrap_s_(GL_REPEAT),
     wrap_t_(GL_REPEAT),
-    filter_min_(GL_LINEAR),
-    filter_max_(GL_LINEAR) {
+    filter_min_(GL_NEAREST),
+    filter_max_(GL_NEAREST) {
   glGenTextures(1, &id_);
 }
 
