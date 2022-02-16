@@ -10,6 +10,7 @@ const glm::vec2 TIER_PADDING {20, 20};
 // tier size
 const glm::vec2 TIER_SIZE {14 * ICON_SIZE.x, ICON_SIZE.y};
 const glm::vec2 TIER_LETTER_SIZE {20, 20};
+const glm::vec2 TIER_LABEL_OFFSET {0, TIER_LETTER_SIZE.y + 8};
 
 // tier positions
 const float TIER_SPACING = 70;

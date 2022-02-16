@@ -7,7 +7,7 @@
 #include <graphic.hpp>
 #include <renderer.hpp>
 
-class ASCIIGraphic : Graphic {
+class ASCIIGraphic : public Graphic {
 public:
   ASCIIGraphic(char character, std::string texturePath, glm::vec2 position, glm::vec2 size, bool transparent);
   void render(Renderer* renderer);

@@ -12,8 +12,10 @@ class Text {
 public:
   Text(std::string text, glm::vec2 position, glm::vec2 letter_size, glm::vec2 spacing);
   void render(Renderer* renderer);
+  void setPosition(glm::vec2 position);
 
 private:
   std::vector<ASCIIGraphic*> letters_;
   ASCIIGraphic* letter;
+  glm::vec2 letter_size_;
 };

@@ -11,7 +11,7 @@ Tier::Tier(int num, std::string name, glm::vec2 position, glm::vec2 size, std::o
   size_ = size;
 
   // tier label
-  glm::vec2 label_position = {position.x, position.y - TIER_LETTER_SIZE.y - 8};
+  glm::vec2 label_position = position - TIER_LABEL_OFFSET;
   label_ = new Text(name, label_position, TIER_LETTER_SIZE, glm::vec2{100, 100}); // bullshit arguments...
 
   // set background texture
@@ -190,6 +190,7 @@ void Tier::setPosition(glm::vec2 position) {
   for (auto& icon : icons_) {
     icon->setPosition(position);
   }
+  label_->setPosition(position - TIER_LABEL_OFFSET);
 }
 
 int Tier::getTierNumber() {
