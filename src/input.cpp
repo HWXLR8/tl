@@ -23,13 +23,30 @@ Input::Input(GLFWwindow* window) {
   glfwSetMouseButtonCallback(window, mouseButtonCallbackAlias);
 }
 
-void Input::runMouseCommand() {
-  switch(mouse_action_) {
+void Input::runMouseCommand(std::vector<Tier*> tiers) {
+  // get active tier
+  Tier* active_tier = nullptr;
+  for (auto& tier : tiers) {
+    if (tier->isActive(mouse_pos_)) {
+      active_tier = tier;
+    }
+  }
+  if (active_tier == nullptr) {
+    mouse_action_ = NONE;
+    return;
+  }
+  if (active_tier->getTierNumber() != 0) {
+    mouse_action_ = NONE;
+    return;
+  }
 
+  switch(mouse_action_) {
   case SCROLL_DOWN:
+    active_tier->scrollDown();
     break;
 
   case SCROLL_UP:
+    active_tier->scrollUp();
     break;
   }
   mouse_action_ = NONE;
@@ -70,6 +87,9 @@ void Input::process(CharacterIcon* active_icon, CharacterIcon* held_icon, std::v
     active_icon->toggleDrag();
     click_ = false;
   }
+
+  // handle mouse scrolling
+  runMouseCommand(tiers);
 }
 
 void Input::cursorPositionCallback(GLFWwindow* window, double xpos, double ypos) {

@@ -12,6 +12,7 @@ public:
   std::string getCharacterName();
   bool isBeingDragged();
   void setPosition(glm::vec2 new_position);
+  glm::vec2 getPosition();
 
 private:
   Graphic* icon_;

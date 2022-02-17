@@ -209,3 +209,21 @@ void Tier::setPosition(glm::vec2 position) {
 int Tier::getTierNumber() {
   return num_;
 }
+
+void Tier::scrollDown() {
+  // stop scrolling once last icon in the list pool is fully visible
+  glm::vec2 last_icon_position = icons_.back()->getPosition();
+  if (last_icon_position.y <= SCREEN_SIZE.y - ICON_SIZE.y) {
+    return;
+  }
+  position_.y -= TIER_SCROLL_SPEED;
+}
+
+void Tier::scrollUp() {
+  // stop scrolling once first icon is fully visible
+  glm::vec2 first_icon_position = icons_[0]->getPosition();
+  if (first_icon_position.y >= 0) {
+    return;
+  }
+  position_.y += TIER_SCROLL_SPEED;
+}

@@ -39,3 +39,7 @@ void CharacterIcon::setPosition(glm::vec2 position) {
   position_ = position;
   icon_->setPosition(position);
 }
+
+glm::vec2 CharacterIcon::getPosition() {
+  return position_;
+}

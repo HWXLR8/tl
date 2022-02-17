@@ -23,6 +23,8 @@ public:
   glm::vec2 getPosition();
   void setPosition(glm::vec2 position);
   int getTierNumber();
+  void scrollDown();
+  void scrollUp();
 
 private:
   glm::vec2 getLastIconPosition();

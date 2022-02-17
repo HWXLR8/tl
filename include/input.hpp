@@ -27,7 +27,7 @@ private:
   MouseAction mouse_action_;
   bool click_ = false;
 
-  void runMouseCommand();
+  void runMouseCommand(std::vector<Tier*> tiers);
 
   // callbacks
   void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);

@@ -6,6 +6,7 @@ const float SCALE = 1.0;
 const glm::vec2 SCREEN_SIZE {1600, 900};
 const glm::vec2 ICON_SIZE {70, 70};
 const glm::vec2 TIER_PADDING {20, 20};
+const float TIER_SCROLL_SPEED = 17.5;
 
 // tier size
 const glm::vec2 TIER_SIZE {14 * ICON_SIZE.x, ICON_SIZE.y};
