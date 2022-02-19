@@ -2,21 +2,20 @@
 
 #include <glm/glm.hpp>
 
+class Config {
+public:
+  static glm::vec2 SCREEN_SIZE;
+  static glm::vec2 ICON_SIZE;
+  static glm::vec2 T1_POS;
+  static glm::vec2 T2_POS;
+  static glm::vec2 T3_POS;
+  static glm::vec2 T4_POS;
+  static glm::vec2 TIER_SIZE;
+  static glm::vec2 TIER_TAIL;
+  static glm::vec2 TIER_LETTER_SIZE;
+  static glm::vec2 TIER_LABEL_OFFSET;
+  static float TIER_SCROLL_SPEED;
+  static float TIER_SPACING;
+};
+
 const float SCALE = 1.0;
-const glm::vec2 SCREEN_SIZE {1600, 900};
-const glm::vec2 ICON_SIZE {70, 70};
-const glm::vec2 TIER_PADDING {20, 20};
-const float TIER_SCROLL_SPEED = 17.5;
-
-// tier size
-const glm::vec2 TIER_SIZE {14 * ICON_SIZE.x, ICON_SIZE.y};
-const glm::vec2 TIER_LETTER_SIZE {20, 20};
-const glm::vec2 TIER_LABEL_OFFSET {0, TIER_LETTER_SIZE.y + 8};
-
-// tier positions
-const float TIER_SPACING = 70;
-const glm::vec2 TIER_TAIL = {60, 0};
-const glm::vec2 T1_POS = {TIER_PADDING.x, 70};
-const glm::vec2 T2_POS = T1_POS + glm::vec2{0, ICON_SIZE.y + TIER_SPACING};
-const glm::vec2 T3_POS = T2_POS + glm::vec2{0, ICON_SIZE.y + TIER_SPACING};
-const glm::vec2 T4_POS = T3_POS + glm::vec2{0, ICON_SIZE.y + TIER_SPACING};

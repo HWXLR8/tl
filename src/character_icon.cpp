@@ -3,7 +3,7 @@
 
 CharacterIcon::CharacterIcon(std::string character_name, glm::vec2 position) {
   position_ = position;
-  size_ = ICON_SIZE;
+  size_ = Config::ICON_SIZE;
   character_name_ = character_name;
   std::string filename = "assets/" + character_name + ".png";
   icon_ = new Graphic(filename, position_, size_, true);

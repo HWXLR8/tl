@@ -31,7 +31,7 @@ Game::Game() {
 
   // main shader
   ResourceManager::loadShader("shader/vert.glsl", "shader/frag.glsl", nullptr, "static_image");
-  glm::mat4 projection = glm::ortho(0.0f, SCREEN_SIZE.x, SCREEN_SIZE.y, 0.0f, -100.0f, 100.0f);
+  glm::mat4 projection = glm::ortho(0.0f, Config::SCREEN_SIZE.x, Config::SCREEN_SIZE.y, 0.0f, -100.0f, 100.0f);
   ResourceManager::getShader("static_image").use().setInteger("image", 0);
   ResourceManager::getShader("static_image").setMatrix4("projection", projection);
   Shader shader = ResourceManager::getShader("static_image");
@@ -145,11 +145,11 @@ Game::Game() {
     "zerosuitsamus",
     // "zombie",
   };
-  Tier* character_pool = new Tier(0, "", glm::vec2{SCREEN_SIZE.x - 6 * ICON_SIZE.x, 0}, glm::vec2{6 * ICON_SIZE.x, SCREEN_SIZE.y}, characters);
-  Tier* t1 = new Tier(1, "TOP TIER", T1_POS, TIER_SIZE, std::nullopt);
-  Tier* t2 = new Tier(2, "HIGH TIER", T2_POS, TIER_SIZE, std::nullopt);
-  Tier* t3 = new Tier(3, "MID TIER", T3_POS, TIER_SIZE, std::nullopt);
-  Tier* t4 = new Tier(4, "LOW TIER", T4_POS, TIER_SIZE, std::nullopt);
+  Tier* character_pool = new Tier(0, "", glm::vec2{Config::SCREEN_SIZE.x - 6 * Config::ICON_SIZE.x, 0}, glm::vec2{6 * Config::ICON_SIZE.x, Config::SCREEN_SIZE.y}, characters);
+  Tier* t1 = new Tier(1, "TOP TIER", Config::T1_POS, Config::TIER_SIZE, std::nullopt);
+  Tier* t2 = new Tier(2, "HIGH TIER", Config::T2_POS, Config::TIER_SIZE, std::nullopt);
+  Tier* t3 = new Tier(3, "MID TIER", Config::T3_POS, Config::TIER_SIZE, std::nullopt);
+  Tier* t4 = new Tier(4, "LOW TIER", Config::T4_POS, Config::TIER_SIZE, std::nullopt);
   tiers_.push_back(character_pool);
   tiers_.push_back(t1);
   tiers_.push_back(t2);
@@ -174,7 +174,7 @@ void Game::initGLFW() {
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
   #endif
   glfwWindowHint(GLFW_RESIZABLE, false);
-  window_ = glfwCreateWindow(SCREEN_SIZE.x, SCREEN_SIZE.y, "SSBU TIER LIST", nullptr, nullptr);
+  window_ = glfwCreateWindow(Config::SCREEN_SIZE.x, Config::SCREEN_SIZE.y, "SSBU TIER LIST", nullptr, nullptr);
   glfwMakeContextCurrent(window_);
 }
 
@@ -186,7 +186,7 @@ void Game::initGLAD() {
 }
 
 void Game::initGL() {
-  glViewport(0, 0, SCREEN_SIZE.x, SCREEN_SIZE.y);
+  glViewport(0, 0, Config::SCREEN_SIZE.x, Config::SCREEN_SIZE.y);
   // glEnable(GL_CULL_FACE);
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -235,10 +235,10 @@ void Game::update(double dt) {
     // tier 0 and 1 never move
     if (tier_num != 0 && tier_num != 1) {
       // new tier position, the cumulative size of all previous tiers plus 20 pixel space
-      glm::vec2 new_pos = T1_POS;
+      glm::vec2 new_pos = Config::T1_POS;
       for (int c = 1; c != tier_num; c++) {
 	new_pos.y += tiers_[c]->getSize().y;
-	new_pos.y += TIER_SPACING;
+	new_pos.y += Config::TIER_SPACING;
       }
       tier->setPosition(new_pos);
     }

@@ -11,16 +11,16 @@ Tier::Tier(int num, std::string name, glm::vec2 position, glm::vec2 size, std::o
   size_ = size;
 
   // tier label
-  glm::vec2 label_position = position - TIER_LABEL_OFFSET;
-  label_ = new Text(name, label_position, TIER_LETTER_SIZE, glm::vec2{100, 100}); // bullshit arguments...
+  glm::vec2 label_position = position - Config::TIER_LABEL_OFFSET;
+  label_ = new Text(name, label_position, Config::TIER_LETTER_SIZE, glm::vec2{100, 100}); // bullshit arguments...
 
   // set background texture
   bg_ = new Graphic("assets/tier_bg.gif", position, size, false);
 
   // calculate icon capacity based on container size
   icon_capacity_ = {
-    std::floor(size.x / ICON_SIZE.x),
-    std::floor(size.y / ICON_SIZE.y),
+    std::floor(size.x / Config::ICON_SIZE.x),
+    std::floor(size.y / Config::ICON_SIZE.y),
   };
 
   if (characters.has_value()) {
@@ -32,7 +32,7 @@ Tier::Tier(int num, std::string name, glm::vec2 position, glm::vec2 size, std::o
 
 void Tier::createNewIcon(std::string character_name) {
   incrementIconIndex();
-  glm::vec2 position = (last_icon_index_ * ICON_SIZE) + position_;
+  glm::vec2 position = (last_icon_index_ * Config::ICON_SIZE) + position_;
   CharacterIcon* icon = new CharacterIcon(character_name, position);
   icons_.push_back(icon);
 }
@@ -112,14 +112,14 @@ void Tier::update(glm::vec2 mouse_pos, bool part_icons, double dt) {
   // grow and shrink background
   glm::vec2 bg_size;
   if (icons_.size() == 0) {
-    bg_size = {icon_capacity_.x * ICON_SIZE.x, ICON_SIZE.y};
+    bg_size = {icon_capacity_.x * Config::ICON_SIZE.x, Config::ICON_SIZE.y};
   } else {
-    bg_size = {icon_capacity_.x * ICON_SIZE.x, (last_icon_index_.y + 1) * ICON_SIZE.y};
+    bg_size = {icon_capacity_.x * Config::ICON_SIZE.x, (last_icon_index_.y + 1) * Config::ICON_SIZE.y};
   }
   // add extra space at the end of the tier so there is room to add an
   // icon to the end when the x capacity is full
   if (num_ != 0) {
-    bg_size += TIER_TAIL;
+    bg_size += Config::TIER_TAIL;
   }
   size_ = bg_size;
   bg_->setSize(bg_size);
@@ -151,7 +151,7 @@ void Tier::clean(bool part_icons) {
     if (part_icons && active_index_.has_value() && last_icon_index_ == active_index_.value()) {
       incrementIconIndex();
     }
-    glm::vec2 icon_position = (last_icon_index_ * ICON_SIZE) + position_;
+    glm::vec2 icon_position = (last_icon_index_ * Config::ICON_SIZE) + position_;
     icon->setPosition(icon_position);
   }
 }
@@ -168,13 +168,13 @@ void Tier::getActiveIndex(glm::vec2 mouse_pos) {
     }
 
     // calculate icon position based on index, icon size and tier position
-    glm::vec2 icon_position = (index * ICON_SIZE) + position_;
+    glm::vec2 icon_position = (index * Config::ICON_SIZE) + position_;
 
     // if mouse is within the icon
     if ((icon_position.x <= mouse_pos.x) &&
-	(mouse_pos.x <= icon_position.x + ICON_SIZE.x) &&
+	(mouse_pos.x <= icon_position.x + Config::ICON_SIZE.x) &&
 	(icon_position.y <= mouse_pos.y) &&
-	(mouse_pos.y <= icon_position.y + ICON_SIZE.y)) {
+	(mouse_pos.y <= icon_position.y + Config::ICON_SIZE.y)) {
       active_index_ = index;
       return;
     }
@@ -203,7 +203,7 @@ void Tier::setPosition(glm::vec2 position) {
   for (auto& icon : icons_) {
     icon->setPosition(position);
   }
-  label_->setPosition(position - TIER_LABEL_OFFSET);
+  label_->setPosition(position - Config::TIER_LABEL_OFFSET);
 }
 
 int Tier::getTierNumber() {
@@ -213,10 +213,10 @@ int Tier::getTierNumber() {
 void Tier::scrollDown() {
   // stop scrolling once last icon in the list pool is fully visible
   glm::vec2 last_icon_position = icons_.back()->getPosition();
-  if (last_icon_position.y <= SCREEN_SIZE.y - ICON_SIZE.y) {
+  if (last_icon_position.y <= Config::SCREEN_SIZE.y - Config::ICON_SIZE.y) {
     return;
   }
-  position_.y -= TIER_SCROLL_SPEED;
+  position_.y -= Config::TIER_SCROLL_SPEED;
 }
 
 void Tier::scrollUp() {
@@ -225,5 +225,5 @@ void Tier::scrollUp() {
   if (first_icon_position.y >= 0) {
     return;
   }
-  position_.y += TIER_SCROLL_SPEED;
+  position_.y += Config::TIER_SCROLL_SPEED;
 }
