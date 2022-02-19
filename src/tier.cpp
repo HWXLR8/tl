@@ -9,10 +9,11 @@ Tier::Tier(int num, std::string name, glm::vec2 position, glm::vec2 size, std::o
   name_ = name;
   position_ = position;
   size_ = size;
+  scale_ = Config::getScale();
 
   // tier label
   glm::vec2 label_position = position - Config::TIER_LABEL_OFFSET;
-  label_ = new Text(name, label_position, Config::TIER_LETTER_SIZE, glm::vec2{100, 100}); // bullshit arguments...
+  label_ = new Text(name, label_position, Config::TIER_LETTER_SIZE, glm::vec2{100, 100}); // spacing not enforced
 
   // set background texture
   bg_ = new Graphic("assets/tier_bg.gif", position, size, false);
@@ -123,6 +124,9 @@ void Tier::update(glm::vec2 mouse_pos, bool part_icons, double dt) {
   }
   size_ = bg_size;
   bg_->setSize(bg_size);
+  bg_->update(dt);
+  label_->update(dt);
+  scale();
 }
 
 CharacterIcon* Tier::getActiveIcon(glm::vec2 mouse_pos) {
@@ -216,7 +220,7 @@ void Tier::scrollDown() {
   if (last_icon_position.y <= Config::SCREEN_SIZE.y - Config::ICON_SIZE.y) {
     return;
   }
-  position_.y -= Config::TIER_SCROLL_SPEED;
+  position_ -= Config::TIER_SCROLL_SPEED;
 }
 
 void Tier::scrollUp() {
@@ -225,5 +229,14 @@ void Tier::scrollUp() {
   if (first_icon_position.y >= 0) {
     return;
   }
-  position_.y += Config::TIER_SCROLL_SPEED;
+  position_ += Config::TIER_SCROLL_SPEED;
+}
+
+void Tier::scale() {
+  glm::vec2 scale = Config::getScale();
+  if (scale_ != scale) {
+    scale_ = scale;
+    size_ *= scale;
+    position_ *= scale;
+  }
 }

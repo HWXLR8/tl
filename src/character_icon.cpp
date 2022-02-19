@@ -25,6 +25,7 @@ void CharacterIcon::update(glm::vec2 mouse_pos, double dt) {
   if (drag_) {
     icon_->move(mouse_pos - (0.5f * size_), 0, dt);
   }
+  icon_->update(dt);
 }
 
 std::string CharacterIcon::getCharacterName() {

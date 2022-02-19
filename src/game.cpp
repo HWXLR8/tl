@@ -145,7 +145,7 @@ Game::Game() {
     "zerosuitsamus",
     // "zombie",
   };
-  Tier* character_pool = new Tier(0, "", glm::vec2{Config::SCREEN_SIZE.x - 6 * Config::ICON_SIZE.x, 0}, glm::vec2{6 * Config::ICON_SIZE.x, Config::SCREEN_SIZE.y}, characters);
+  Tier* character_pool = new Tier(0, "", Config::T0_POS, Config::T0_SIZE, characters);
   Tier* t1 = new Tier(1, "TOP TIER", Config::T1_POS, Config::TIER_SIZE, std::nullopt);
   Tier* t2 = new Tier(2, "HIGH TIER", Config::T2_POS, Config::TIER_SIZE, std::nullopt);
   Tier* t3 = new Tier(3, "MID TIER", Config::T3_POS, Config::TIER_SIZE, std::nullopt);
@@ -198,9 +198,9 @@ void Game::framebufferSizeCallback(GLFWwindow* window, int width, int height) {
   recalculateProjectionMatrix(new_screen_size);
 }
 
-// TODO is this necessary?
 void Game::windowSizeCallback(GLFWwindow* window, int width, int height) {
-  // glm::vec2 new_screen_size {width, height};
+  glm::vec2 new_screen_size {width, height};
+  Config::calculateNewScale(new_screen_size);
   // recalculateProjectionMatrix(new_screen_size);
 }
 
@@ -238,7 +238,7 @@ void Game::update(double dt) {
       glm::vec2 new_pos = Config::T1_POS;
       for (int c = 1; c != tier_num; c++) {
 	new_pos.y += tiers_[c]->getSize().y;
-	new_pos.y += Config::TIER_SPACING;
+	new_pos += Config::TIER_SPACING;
       }
       tier->setPosition(new_pos);
     }

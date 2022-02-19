@@ -1,4 +1,6 @@
 #include <graphic.hpp>
+
+#include <config.hpp>
 #include <resource_manager.hpp>
 
 Graphic::Graphic(std::string texturePath, glm::vec2 position, glm::vec2 size, bool transparent) {
@@ -7,6 +9,7 @@ Graphic::Graphic(std::string texturePath, glm::vec2 position, glm::vec2 size, bo
   }
   position_ = position;
   size_ = size;
+  scale_ = Config::getScale();
 }
 
 void Graphic::update(double dt) {
@@ -16,6 +19,7 @@ void Graphic::update(double dt) {
   if (change_size_in_progress_) {
     changeSize(new_size_, growth_speed_, dt);
   }
+  scale();
 }
 
 void Graphic::render(Renderer *renderer) {
@@ -207,4 +211,13 @@ void Graphic::setSize(glm::vec2 new_size) {
 
 void Graphic::setPosition(glm::vec2 position) {
   position_ = position;
+}
+
+void Graphic::scale() {
+  glm::vec2 scale = Config::getScale();
+  if (scale_ != scale) {
+    scale_ = scale;
+    size_ *= scale;
+    position_ *= scale;
+  }
 }

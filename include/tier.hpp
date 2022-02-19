@@ -27,18 +27,20 @@ public:
   void scrollUp();
 
 private:
-  glm::vec2 getLastIconPosition();
-  void incrementIconIndex();
-  void decrementIconIndex();
-
   int num_;
   std::string name_;
   glm::vec2 position_;
   glm::vec2 size_;
+  glm::vec2 scale_;
   Graphic* bg_;
   std::vector<CharacterIcon*> icons_;
   glm::vec2 icon_capacity_;
   glm::vec2 last_icon_index_ = {-1, -1};
   std::optional<glm::vec2> active_index_;
   Text* label_;
+
+  glm::vec2 getLastIconPosition();
+  void incrementIconIndex();
+  void decrementIconIndex();
+  void scale();
 };

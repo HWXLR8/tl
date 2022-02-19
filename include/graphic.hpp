@@ -30,6 +30,7 @@ public:
 protected:
   glm::vec2 size_;
   glm::vec2 position_;
+  glm::vec2 scale_;
   glm::vec3 rotation_ = {0.0f, 0.0f, 0.0f};
   glm::vec4 color_ = {1.0f, 1.0f, 1.0f, 1.0f};
 
@@ -50,6 +51,8 @@ protected:
   bool visible_ = true;
   bool illuminated_ = true;
   Texture2D texture_;
+
+  void scale();
 
 private:
   glm::vec2 calculateUnitVector(glm::vec2 p1, glm::vec2 p2);
