@@ -12,6 +12,7 @@ public:
   static glm::vec2 T2_POS;
   static glm::vec2 T3_POS;
   static glm::vec2 T4_POS;
+  static glm::vec2 TIER_POS_OFFSET;
   static glm::vec2 T0_SIZE;
   static glm::vec2 TIER_SIZE;
   static glm::vec2 TIER_TAIL;
@@ -19,6 +20,7 @@ public:
   static glm::vec2 TIER_LABEL_OFFSET;
   static glm::vec2 TIER_SCROLL_SPEED;
   static glm::vec2 TIER_SPACING;
+  static glm::vec2 TIER_BG_PADDING;
 
   static void calculateNewScale(glm::vec2 new_screen_size);
   static glm::vec2 getScale();

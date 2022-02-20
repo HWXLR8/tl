@@ -7,7 +7,7 @@
 Tier::Tier(int num, std::string name, glm::vec2 position, glm::vec2 size, std::optional<std::vector<std::string>> characters) {
   num_ = num;
   name_ = name;
-  position_ = position;
+  position_ = position + Config::TIER_POS_OFFSET;
   size_ = size;
   scale_ = Config::getScale();
 
@@ -123,7 +123,7 @@ void Tier::update(glm::vec2 mouse_pos, bool part_icons, double dt) {
     bg_size += Config::TIER_TAIL;
   }
   size_ = bg_size;
-  bg_->setSize(bg_size);
+  bg_->setSize(bg_size + Config::TIER_BG_PADDING);
   bg_->update(dt);
   label_->update(dt);
   scale();
@@ -202,7 +202,7 @@ glm::vec2 Tier::getPosition() {
 }
 
 void Tier::setPosition(glm::vec2 position) {
-  position_ = position;
+  position_ = position + Config::TIER_POS_OFFSET;
   bg_->setPosition(position);
   for (auto& icon : icons_) {
     icon->setPosition(position);
