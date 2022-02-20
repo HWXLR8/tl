@@ -1,5 +1,8 @@
 #pragma once
 
+#include <vector>
+#include <string>
+
 #include <glm/glm.hpp>
 
 class Config {
@@ -21,6 +24,7 @@ public:
   static glm::vec2 TIER_SCROLL_SPEED;
   static glm::vec2 TIER_SPACING;
   static glm::vec2 TIER_BG_PADDING;
+  static std::vector<std::string> character_list;
 
   static void calculateNewScale(glm::vec2 new_screen_size);
   static glm::vec2 getScale();
