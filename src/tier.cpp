@@ -7,7 +7,10 @@
 Tier::Tier(int num, std::string name, glm::vec2 position, glm::vec2 size, std::optional<std::vector<std::string>> characters) {
   num_ = num;
   name_ = name;
-  position_ = position + Config::TIER_POS_OFFSET;
+  position_ = position;
+  if (num != 0) {
+    position_ += Config::TIER_POS_OFFSET;
+  }
   size_ = size;
   scale_ = Config::getScale();
 
