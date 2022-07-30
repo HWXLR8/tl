@@ -3,16 +3,16 @@
 #include <glprg.hpp>
 
 int main(int argc, char** argv) {
-  GLPRG* game = nullptr;
+  GLPRG* glprg = nullptr;
   try {
-    game = new GLPRG();
-    game->run();
+    glprg = new GLPRG();
+    glprg->run();
   } catch (const std::exception& e) {
     std::cerr << "\033[1;31mERROR: \033[0m" << e.what() << std::endl;
   }
-  // only delete game if it was successfully initialized
-  if (game != nullptr) {
-    delete game;
+  // only delete glprg if it was successfully initialized
+  if (glprg != nullptr) {
+    delete glprg;
   }
   return 0;
 }

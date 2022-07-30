@@ -16,10 +16,8 @@ class ResourceManager {
   static Texture2D loadTexture(std::string path, bool alpha);
   static Texture2D getTexture(std::string path, bool alpha);
   static void clear();
+
  private:
-  // private constructor, that is we do not want any actual resource
-  // manager objects. Its members and functions should be publicly
-  // available (static).
   ResourceManager() {}
   static Shader loadShaderFromFile(const char *vShaderFile, const char *fShaderFile, const char *gShaderFile = nullptr);
   static Texture2D loadTextureFromFile(std::string path, bool alpha);

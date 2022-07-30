@@ -18,7 +18,6 @@ class GLPRG {
 
 private:
   GLFWwindow* window_;
-  // TODO do not make optional, use nullptr instead?
   CharacterIcon* active_icon_ = nullptr; // icon the cursor is hovering over
   CharacterIcon* held_icon_ = nullptr; // icon being held in hand while being dragged
   Input* input_;

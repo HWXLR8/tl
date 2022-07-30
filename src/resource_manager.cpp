@@ -1,14 +1,13 @@
 #include <glad/glad.h>
 #include <stb/stb_image.h>
 
+#include <filesystem>
+#include <fstream>
 #include <iostream>
 #include <sstream>
-#include <fstream>
-#include <filesystem>
 
 #include <resource_manager.hpp>
 
-// Instantiate static variables
 std::map<std::string, Texture2D> ResourceManager::Textures;
 std::map<std::string, Shader> ResourceManager::Shaders;
 

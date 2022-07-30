@@ -3,6 +3,7 @@
 #include <string>
 
 class Texture2D {
+
 public:
   Texture2D();
   void Generate(unsigned int width, unsigned int height, unsigned char* data, std::string name);
