@@ -1,11 +1,11 @@
 #include <iostream>
 
-#include <game.hpp>
+#include <glprg.hpp>
 
 int main(int argc, char** argv) {
-  Game* game = nullptr;
+  GLPRG* game = nullptr;
   try {
-    game = new Game();
+    game = new GLPRG();
     game->run();
   } catch (const std::exception& e) {
     std::cerr << "\033[1;31mERROR: \033[0m" << e.what() << std::endl;

@@ -6,14 +6,14 @@
 #include <thread>
 #include <vector>
 
-#include <game.hpp>
+#include <glprg.hpp>
 #include <resource_manager.hpp>
 #include <renderer.hpp>
 #include <config.hpp>
 
 Renderer *renderer;
 
-Game::Game() {
+GLPRG::GLPRG() {
   // window/GL
   initGLFW();
   initGLAD();
@@ -21,10 +21,10 @@ Game::Game() {
 
   // hack GLFW to accept a c++ member function as a callback
   auto framebufferSizeCallbackAlias = [](GLFWwindow* window, int width, int height) {
-    static_cast<Game*>(glfwGetWindowUserPointer(window))->framebufferSizeCallback(window, width, height);
+    static_cast<GLPRG*>(glfwGetWindowUserPointer(window))->framebufferSizeCallback(window, width, height);
   };
   auto windowSizeCallbackAlias = [](GLFWwindow* window, int width, int height) {
-    static_cast<Game*>(glfwGetWindowUserPointer(window))->windowSizeCallback(window, width, height);
+    static_cast<GLPRG*>(glfwGetWindowUserPointer(window))->windowSizeCallback(window, width, height);
   };
   glfwSetFramebufferSizeCallback(window_, framebufferSizeCallbackAlias);
   glfwSetWindowSizeCallback(window_, windowSizeCallbackAlias);
@@ -53,12 +53,12 @@ Game::Game() {
   input_ = new Input(window_);
 }
 
-Game::~Game() {
+GLPRG::~GLPRG() {
   ResourceManager::clear();
   glfwTerminate();
 }
 
-void Game::initGLFW() {
+void GLPRG::initGLFW() {
   glfwInit();
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -71,38 +71,38 @@ void Game::initGLFW() {
   glfwMakeContextCurrent(window_);
 }
 
-void Game::initGLAD() {
+void GLPRG::initGLAD() {
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
     throw std::runtime_error("Failed to initialize GLAD");
     return;
   }
 }
 
-void Game::initGL() {
+void GLPRG::initGL() {
   glViewport(0, 0, Config::SCREEN_SIZE.x, Config::SCREEN_SIZE.y);
   // glEnable(GL_CULL_FACE);
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void Game::framebufferSizeCallback(GLFWwindow* window, int width, int height) {
+void GLPRG::framebufferSizeCallback(GLFWwindow* window, int width, int height) {
   glViewport(0, 0, width, height);
   glm::vec2 new_screen_size {width, height};
   recalculateProjectionMatrix(new_screen_size);
 }
 
-void Game::windowSizeCallback(GLFWwindow* window, int width, int height) {
+void GLPRG::windowSizeCallback(GLFWwindow* window, int width, int height) {
   glm::vec2 new_screen_size {width, height};
   Config::calculateNewScale(new_screen_size);
   // recalculateProjectionMatrix(new_screen_size);
 }
 
-void Game::recalculateProjectionMatrix(glm::vec2 new_screen_size) {
+void GLPRG::recalculateProjectionMatrix(glm::vec2 new_screen_size) {
   glm::mat4 projection = glm::ortho(0.0f, new_screen_size.x, new_screen_size.y, 0.0f, -100.0f, 100.0f);
   ResourceManager::getShader("static_image").setMatrix4("projection", projection);
 }
 
-void Game::update(double dt) {
+void GLPRG::update(double dt) {
   mouse_pos_ = input_->getMousePosition();
   getActiveIcon();
   input_->process(active_icon_, held_icon_, tiers_, dt);
@@ -140,7 +140,7 @@ void Game::update(double dt) {
   }
 }
 
-void Game::render() {
+void GLPRG::render() {
   Shader static_image = ResourceManager::getShader("static_image");
   renderer->setShader(static_image);
   for (auto& tier : tiers_) {
@@ -154,7 +154,7 @@ void Game::render() {
   }
 }
 
-void Game::run() {
+void GLPRG::run() {
   double dt = 0.0;
   double lastFrame = glfwGetTime();
   while (!glfwWindowShouldClose(window_)) {
@@ -171,7 +171,7 @@ void Game::run() {
   }
 }
 
-void Game::getActiveIcon() {
+void GLPRG::getActiveIcon() {
   if (held_icon_ != nullptr) {
     active_icon_ = held_icon_;
     return;

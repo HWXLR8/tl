@@ -10,10 +10,10 @@
 #include <text.hpp>
 #include <tier.hpp>
 
-class Game {
+class GLPRG {
  public:
-  Game();
-  ~Game();
+  GLPRG();
+  ~GLPRG();
   void run();
 
 private:
