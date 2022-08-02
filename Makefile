@@ -1,4 +1,6 @@
 $(shell mkdir -p bin)
+NAME = tl
+
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	LDFLAGS = `pkg-config --static --libs glfw3` -lGL -lm -lXrandr -lXi -lX11 -lXxf86vm -lpthread -ldl -lXinerama -lXcursor
@@ -6,8 +8,8 @@ endif
 ifeq ($(UNAME_S),Darwin)
 	LDFLAGS = `pkg-config --static --libs glfw3` -framework OpenGL -lm -lpthread -ldl
 endif
-# CXXFLAGS = -std=c++17 -g -Wall -Wextra
-CXXFLAGS = -std=c++17
+
+CXXFLAGS = -std=c++17 -Wall -Wextra
 CFLAGS = -O2 -Iinclude
 CPPFLAGS = -Iinclude
 SRC_DIR := src
@@ -15,7 +17,7 @@ OBJ_DIR := bin
 SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
-ssbu-tl: $(OBJ_FILES) bin/glad.o bin/stb_image.o
+$(NAME): $(OBJ_FILES) bin/glad.o bin/stb_image.o
 	g++ $(LDFLAGS) -o $@ $^
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
@@ -28,10 +30,10 @@ bin/stb_image.o: src/stb_image.c
 	gcc $(CFLAGS) -c src/stb_image.c -o bin/stb_image.o
 
 .PHONY: run
-run: ssbu-tl
-	./ssbu-tl
+run: $(NAME)
+	./$(NAME)
 
 .PHONY: clean
 clean:
 	rm -rf bin/*
-	rm -f ssbu-tl
+	rm -f $(NAME)
